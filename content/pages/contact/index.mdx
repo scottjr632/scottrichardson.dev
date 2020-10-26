@@ -1,0 +1,19 @@
+---
+title: Contact Me
+slug: "/contact"
+---
+
+<Flex sx={{
+  width: '100%',
+  '& > div': {
+    flex: '1 1 auto',
+    padding: '0.4rem',
+  }
+}}>
+  <Field label='Your Name' name='name' defaultValue='' />
+  <Field label='Email' name='email' defaultValue='' />
+</Flex>
+
+<Text>Message</Text>
+<TextArea defaultValue='' rows={4} />
+<Button>Send</Button>
