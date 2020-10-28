@@ -50,9 +50,9 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `minimal-blog - @lekoarts/gatsby-theme-minimal-blog`,
-        short_name: `minimal-blog`,
-        description: `Typography driven, feature-rich blogging theme with minimal aesthetics. Includes tags/categories support and extensive features for code blocks such as live preview, line numbers, and code highlighting.`,
+        name: `Scott Richardson - Software Engineer`,
+        short_name: `Scott Richardson`,
+        description: `Hello 👋 I'm Scott - currently a Software Engineer in San Antonio, Texas 🌵. I love writing about React, Typescript, NodeJS, and Golang as well as creating libraries and applications that help to make engineering easier and more accessible!`,
         start_url: `/`,
         background_color: `#fff`,
         theme_color: `#6B46C1`,
