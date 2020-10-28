@@ -3,17 +3,26 @@ title: Contact Me
 slug: "/contact"
 ---
 
-<Flex sx={{
-  width: '100%',
-  '& > div': {
-    flex: '1 1 auto',
-    padding: '0.4rem',
-  }
-}}>
-  <Field label='Your Name' name='name' defaultValue='' />
-  <Field label='Email' name='email' defaultValue='' />
-</Flex>
+<form
+  name="contact"
+  method="post"
+  data-netlify="true"
+  data-netlify-honeypot="bot-field"
+  style={{ maxWidth: '40rem' }}
+>
+  <Flex sx={{
+    width: '100%',
+    marginBottom: '0.59rem',
+    '& > div': {
+      flex: '1 1 auto',
+    }
+  }}>
+    <input type="hidden" name="contact-me" value="contact" />
+    <Field label='Your Name' name='name' defaultValue='' />
+    <Field label='Email' name='email' type='email' defaultValue='' />
+  </Flex>
 
-<Text>Message</Text>
-<TextArea defaultValue='' rows={4} />
-<Button>Send</Button>
+  <Text>Message</Text>
+  <TextArea defaultValue='' rows={4} />
+  <Button type="submit">Send</Button>
+</form>
