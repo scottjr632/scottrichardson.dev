@@ -8,7 +8,8 @@ module.exports = {
   siteMetadata: {
     siteTitle: `Scott Richardson`,
     siteTitleAlt: `Scott Richardson`,
-    siteUrl: `https://www.scottrichardson.dev`
+    siteUrl: `https://www.scottrichardson.dev`,
+    description: `Hello 👋 I'm Scott - currently a Software Engineer in San Antonio, Texas 🌵. I love writing about React, Typescript, NodeJS, and Golang as well as creating libraries and applications that help to make engineering easier and more accessible!`
   },
   plugins: [
     {
