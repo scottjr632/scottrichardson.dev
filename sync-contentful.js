@@ -82,6 +82,9 @@ function writeNewPost(meta) {
   const filename = meta.slug.replace('/', '').toLocaleLowerCase();
   const path = `${contentDir}/${filename}`;
 
+  if (!fs.existsSync(contentDir))
+    fs.mkdirSync(contentDir)
+
   if (!fs.existsSync(path))
     fs.mkdirSync(path);
 
