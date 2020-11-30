@@ -7,11 +7,13 @@
   "license": "0BSD",
   "starter-name": "gatsby-starter-minimal-blog",
   "scripts": {
-    "build": "gatsby build",
+    "sync": "node sync-contentful.js",
+    "sync:dev": "cross-env NODE_ENV=development node sync-contentful.js",
+    "build": "cross-env NODE_ENV=production npm run sync && gatsby build",
     "develop": "gatsby develop",
     "develop:cypress": "cross-env CYPRESS_SUPPORT=y yarn develop",
     "build:cypress": "cross-env CYPRESS_SUPPORT=y yarn build",
-    "start": "gatsby develop",
+    "start": "cross-env NODE_ENV=development npm run sync && gatsby develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean"
   },
@@ -24,6 +26,8 @@
     "gatsby-plugin-offline": "^2.2.4",
     "gatsby-plugin-sitemap": "^2.2.19",
     "gatsby-plugin-webpack-bundle-analyser-v2": "^1.1.10",
+    "gatsby-source-contentful": "^4.1.1",
+    "isomorphic-fetch": "^3.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
