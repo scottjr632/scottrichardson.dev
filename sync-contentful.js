@@ -1,4 +1,5 @@
 const fs = require('fs');
+const crypto = require('crypto');
 
 require('isomorphic-fetch');
 require(`dotenv`).config({
@@ -10,6 +11,8 @@ const contentDir = './content/posts';
 const spaceId = `5wszs19rrw5y`;
 const contentUrl = `https://cdn.contentful.com/spaces/${spaceId}/environments/master/entries`;
 const previewUrl = `https://preview.contentful.com/spaces/${spaceId}/environments/master/entries`;
+
+const memcache = new Set();
 
 /**
  * @typedef ContentfulData
@@ -89,10 +92,31 @@ function writeNewPost(meta) {
     fs.mkdirSync(path);
 
   return new Promise((resolve) => {
-    fs.writeFile(`${path}/${file}`, `${top}\n${meta.content}`, () => {
+    const fileContent = `${top}\n${meta.content}`;
+    if (!checkOrInsertCache(fileContent)) {
+      fs.writeFile(`${path}/${file}`, `${top}\n${meta.content}`, () => {
+        resolve()
+      })
+    } else {
+      console.log(`${meta.slug} has not been updated. skipping...`)
       resolve()
-    })
+    }
   })
+}
+
+/**
+ * Checks whether or not the file has not changed. If it has changed or has not been
+ * cached yet, we cache it and return false. If the file has been cached we return true.
+ * @param {string} fileString 
+ * @returns {boolean}
+ */
+function checkOrInsertCache(fileString) {
+  const hashedFile = crypto.createHash('md5').update(fileString).digest('hex');
+  if (memcache.has(hashedFile)) {
+    return true;
+  }
+  memcache.add(hashedFile);
+  return false;
 }
 
 /**
@@ -117,8 +141,17 @@ async function syncContentful(posts) {
   await Promise.all(postPromises);
 }
 
-(async () => {
+async function doSync(isDev = false) {
   console.log('Syncing with contentful...');
-  const posts = await getContentfulStuff(process.env.NODE_ENV === 'development');
+  const posts = await getContentfulStuff(isDev);
   await syncContentful(posts)
+}
+
+(async () => {
+  if (process.env.NODE_ENV) {
+    await doSync(process.env.NODE_ENV === 'development')
+    console.log('finished sync')
+  }
 })();
+
+module.exports.doSync = doSync;
